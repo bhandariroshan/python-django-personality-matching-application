@@ -35,7 +35,7 @@ def get_mentor_match(my_answer, mentors):
 def load_mentor_answers(filename):
     answers = []
     f = "sciencerunaway/static/" + filename
-    with open(f, 'r') as csvfile:
+    with open(f, 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for index, row in enumerate(spamreader):
             if index == 0:
