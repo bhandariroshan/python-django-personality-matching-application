@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!-- Begin page content -->
+  <div class="row" style="margin-top:10%">
+      {% for p in images %}
+        <div class="col-lg-3" style="margin-bottom=100px">
+          <!--Card-->
+          <div class="card wow fadeInUp">
+
+              <!--Card image-->
+              <div class="view overlay hm-white-slight">
+                  <img src="static/{{p}}.jpg" class="img-fluid" alt="" height="350" width="300">
+                  <a>
+                      <div class="mask"></div>
+                  </a>
+              </div>
+              <!--/.Card image-->
+
+              <!--Card content-->
+              <div class="card-block text-center">
+                  <!--Title-->
+                  <h4 class="card-title">{{p}}</h4>
+                  <hr>
+                  <!--Text-->
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident fuga animi architecto dolores dicta cum quo velit.</p>
+              </div>
+              <!--/.Card content-->
+
+          </div>
+          <br>
+        </div>
+      {% endfor %}
+    </div>
+
+
+
+{% endblock %}

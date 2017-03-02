@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">The Science Runway</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="quiz">Get Matched!</a></li>
+        <li><a href="about">About</a></li>
+        <li class="active"><a href="contact">Contact</a></li>
+        <li><a href="gallery">Role Models</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+<!-- Begin page content -->
+<div class="container">
+
+  <h3 class="featurette-heading">Thanks for signing up!</h3><br>
+  <h4>We'll make sure you're on the VIP list. :)</h4>
+
+  <hr class="featurette-divider">
+
+</div><!-- /.container -->
+
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted">This website was created by the girls of the <a href="http://paly.net">Palo Alto High School</a> AWD Club.<br>Content sponsored by <a href="https://twitter.com/sciencerunway"> @TheScienceRunway</a> project.</p>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

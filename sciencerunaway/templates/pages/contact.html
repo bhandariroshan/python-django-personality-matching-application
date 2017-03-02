@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+  <!-- Begin page content -->
+  <div class="container">
+
+    <br><br><br>
+   <h3 class="featurette-heading">Keep updated!</h3><br>
+    <h4><i>Sign up for our mailing list, and we'll email you with major updates and new mentors. We won't send more than one email a month, promise!</i></h4>
+    <br>
+    <form class="form-signin" method= "link" action="mailing">
+      <p>Your email:</p>
+      <p><textarea name="comments" rows="1" cols="40"></textarea></p>
+    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+
+    </form>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+    </footer>
+    <br>
+    <hr class="featurette-divider">
+
+  </div><!-- /.container -->
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<!-- Begin page content -->
+
+<div class="container" style="margin-top:3%">
+  <h2 class="card-title"><b>Personality Test</b></h2>
+  <h6><i>Fill in a few simple questions about your self and find a role model who's just like you!</i></h6>
+
+  <div class="card wow fadeInUp">
+      <!--Card content-->
+      <div class="card-block">
+          <form method="POST" action="/result/">
+            {% csrf_token %}
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%">
+                <label for="input_text" class="mdl-textfield__label">Name</label>
+                <input type="text" name="name" class="mdl-textfield__input" id="input_text" />
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%">
+              <textarea class="mdl-textfield__input" name="description" type="text" rows= "7" id="sample5" ></textarea>
+              <label class="mdl-textfield__label" for="sample5">Tell us a little bit about yourself</label>
+            </div>
+
+            <br>
+            <table style="width:100%">
+              <tr><p style="font-size:18px">What best describes you? Select one option per row:</p></tr>
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+              {%  for each_question in questions %}
+              <tr>
+                <td>
+                  <label for="option-1" class="" style="margin-top: 20px;">
+                      <span class="mdl-radio__label" style="font-size: 16px; ">{{each_question.1}}</span>
+                  </label>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="option-{{forloop.counter}}1" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                      <input type="radio" class="mdl-radio__button" id="option-{{forloop.counter}}1" name="options_{{each_question.0}}" value="{{each_question.2}}" />
+                      <span class="mdl-radio__label" style="font-size: 12px;">{{each_question.2}}</span>
+                  </label>
+                </td>
+                <td>
+                  <label for="option-{{forloop.counter}}2" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                      <input type="radio" class="mdl-radio__button" id="option-{{forloop.counter}}2" name="options_{{each_question.0}}" value="{{each_question.3}}" />
+                      <span class="mdl-radio__label" style="font-size: 12px;">{{each_question.3}}</span>
+                  </label>
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-mdb">Submit</button>
+          </form>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

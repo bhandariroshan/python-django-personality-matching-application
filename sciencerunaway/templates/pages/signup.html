@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head_title %}The Science Runner {% endblock %}
+
+{% block content %}
+	<div class="col-md-12">
+		<h3 style="text-align:center; margin-top:10px;">Create Account</h3>
+	</div>
+    <form method="POST" action=".">
+    	{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-sm btn-primary">
+    </form>
+{% endblock %}
