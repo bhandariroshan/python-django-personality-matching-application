@@ -138,15 +138,10 @@ class ResultView(TemplateView):
         mentor_answers = load_mentor_answers("mentor_answers.csv")
         match = get_mentor_match(answer, mentor_answers)
 
-        # print(match)
-
         # q1 = request.args.getlist('Q1').decode('utf-8')
         # write_log_file(SURVEY_RESULTS, json.dumps(q1) + "\tMATCHED TO: %s" % match)
 
         links = load_mentor_names("mentor_links_final.csv")
-        print(links)
-        print('------------------------------------------------------')
-        print(match)
         profiles, mentor_questions = load_mentor_profiles(
             "mentor_profilesfinalv2.csv",
             "mentor_profilesfinalv3.csv",

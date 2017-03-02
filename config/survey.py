@@ -21,7 +21,7 @@ def dummy_match(my_answer):
 
 def get_mentor_match(my_answer, mentors):
     best_score = 0
-    best_mentor = mentors[0][0]
+    best_mentor = mentors[0][1]
     # if no match to any mentors, randomly select one
     for k in mentors:
         # for each mentor, find score
