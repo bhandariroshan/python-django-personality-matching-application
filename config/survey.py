@@ -36,7 +36,7 @@ def load_mentor_answers(filename):
     answers = []
     f = "sciencerunaway/static/" + filename
     with open(f, 'rU') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|', dialect=csv.excel_tab)
         for index, row in enumerate(spamreader):
             if index == 0:
                 continue
