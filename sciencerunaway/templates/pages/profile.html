@@ -1,50 +1,243 @@
 {% extends "base.html" %}
 {% block content %}
+    <!-- Content
+    ============================================= -->
+    <section id="content">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+      <div class="content-wrap">
 
-<!-- Begin page content -->
-<div class="container">
-  <h2 class="featurette-heading">{{message1}}<br>{{message2}}{{name}}</h2><br>
-  <div class="row">
-    <div class="col-xs-6 col-md-4">
-      <a href="#" class="thumbnail">
-        <img data-src="holder.js/100%x360" src = "/static/{{key}}.jpg">
-      </a>
-    </div>
-    <div class="row marketing">
-      <div class="col-lg-8">
-        <h4>{{profile.1}}</h4>
-        <p><b>{{name}}: </b> {{profile.1}}</p>
-      </div>
-    </div>
-  </div>
-  
-  {% for q in profile %}
-        <div class="col-lg-12">
-          <i><h4>{{forloop.counter|get_question}}</h4></i>
-          <p><b>{{name}}: </b>{{q}}</p>
+        <div class="container clearfix">
+
+          <div class="row clearfix">
+
+            <div class="col-sm-9">
+
+              <img src="/static/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
+
+              <div class="heading-block noborder">
+                <h3>{{mentor.mentor.name}}</h3>
+                <span>Mentor</span>
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="row clearfix">
+
+                <div class="col-md-12">
+
+                  <div class="tabs tabs-alt clearfix" id="tabs-profile">
+
+                    <ul class="tab-nav clearfix">
+                      <li><a href="#tab-feeds"><i class="icon-"></i>Feeds</a></li>
+                      {% if userprof.signup_type == 2 %}
+                      <li><a href="#tab-connections"><i class="icon-users"></i> Connections </a></li>
+                      {% endif %}
+                    </ul>
+
+                    <div class="tab-container">
+
+                      <div class="tab-content clearfix" id="tab-feeds">
+                      {% if userprof.signup_type == 1 %}
+                        <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium harum ea quo! Nulla fugiat earum, sed corporis amet iste non, id facilis dolorum, suscipit, deleniti ea. Nobis, temporibus magnam doloribus. Reprehenderit necessitatibus esse dolor tempora ea unde, itaque odit. Quos.</p>
+                      {% endif %}
+                        <div class="table-responsive">
+                        <p><h3> Personality Questions </h3></p>
+                        <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1">Tell us a little bit about yourself: </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.0}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.0}} </p>
+                          {% endif %}
+                        </div>
+
+                        <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1">What do you do every day? </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.1}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.1}} </p>
+                          {% endif %}
+                        </div>
+
+                        <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1"> Why do you love it? </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.2}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.2}} </p>
+                          {% endif %}
+                        </div>
+
+                        <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1">What were your moments of fear/challenges in your career? </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.3}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.3}} </p>
+                          {% endif %}
+                        </div>
+
+                         <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1">What are some of the innovations in science that you are most excited about? </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.5}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.5}} </p>
+                          {% endif %}
+                        </div>
+
+                         <div style="width:100%">
+                          <label class="mdl-textfield__label" for="question1">Where did you grow up? </label>
+                          {% if userprof.signup_type == 2 %}
+                              <p> {{userprof.name}}: {{userprof.other_answers.6}} </p>
+                          {% endif %}
+                          {% if userprof.signup_type == 1 %}
+                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.6}} </p>
+                          {% endif %}
+                        </div>
+                        <p><h3>Match Questions </h3></p>
+                        <table class="table table-bordered table-striped">
+                            <colgroup>
+                            <col class="col-xs-1">
+                            <col class="col-xs-7">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                              {% if userprof.signup_type == 1 %}
+                              <th colspan="2">Mentor</th>
+                              {% endif %}
+                              <th colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>Question</th>
+                              <th colspan="2">Me</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                              {% if userprof.signup_type == 1 %}
+                                <td colspan="2">{{mentor.mentor.common_answers.0}}</td>
+                              {% endif %}
+                              <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
+                                <code>At fifteen, I enjoyed</code>
+                              </td>
+                              <td colspan="2">{{userprof.common_answers.0}}</td>
+                            </tr>
+                            <tr>
+                                {% if userprof.signup_type == 1 %}
+                                <td colspan="2">{{mentor.mentor.common_answers.1}}</td>
+                                {% endif %}
+                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
+                                    <code>At fifteen, my favorite subjects were:</code>
+                                </td>
+                                <td colspan="2">{{userprof.common_answers.1}}</td>
+                            </tr>
+                            <tr>
+                                {% if userprof.signup_type == 1 %}
+                                <td colspan="2">{{mentor.mentor.common_answers.2}}</td>
+                                {% endif %}
+                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
+                                    <code>I Preferred</code>
+                                </td>
+                                <td colspan="2">{{userprof.common_answers.2}}</td>
+                            </tr>
+                            <tr>
+                                {% if userprof.signup_type == 1 %}
+                                  <td colspan="2">{{mentor.mentor.common_answers.3}}</td>
+                                {% endif %}
+                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
+                                    <code>I Preferred</code>
+                                </td>
+                                <td colspan="2">{{userprof.common_answers.3}}</td>
+                            </tr>
+                            <tr>
+                                {% if userprof.signup_type == 1 %}
+                                  <td colspan="2">{{mentor.mentor.common_answers.4}}</td>
+                                {% endif %}
+                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
+                                    <code>I Preferred</code>
+                                </td>
+                                <td colspan="2">{{userprof.common_answers.4}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        </div>
+
+                      </div>
+
+                      {% if userprof.signup_type == 2 %}
+                      <div class="tab-content clearfix" id="tab-connections">
+
+                        <div class="row topmargin-sm">
+                          <div class="col-md-3 col-sm-6 bottommargin">
+
+                            <div class="team">
+                              <div class="team-image">
+                                <img src="/static/images/team/3.jpg" alt="John Doe">
+                              </div>
+                              <div class="team-desc">
+                                <div class="team-title">
+                                    <h4>John Doe</h4>
+                                    <span></span>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            {% for each_connection in  girls %}
+                                <div class="team">
+                                    <div class="team-image">
+                                      <img src="/static/images/team/3.jpg" alt="John Doe">
+                                    </div>
+                                    <div class="team-desc">
+                                      <div class="team-title">
+                                          <h4>{{each_girl.name}}</h4>
+                                          <span></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                            {%  endfor %}
+
+                          </div>
+
+                        </div>
+
+                      </div>
+                      {% endif %}
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="line visible-xs-block"></div>
+
+            <div class="col-sm-3 clearfix">
+
+              <div class="fancy-title topmargin title-border">
+                <h4>About Me</h4>
+              </div>
+
+              <p>{{userprof.bio}}</p>
+
+              
+
+            </div>
+
+          </div>
+
         </div>
-  {% endfor %}
 
-    <div class="row marketing">
       </div>
-    <div class="row marketing">
-      <div class="col-lg-12">
-        <i><h4>About {{name}}</h4>
-        <p>{{profile.1}}</p></i>
-      </div>
-    </div>
-  <!-- FOOTER -->
 
-  <footer>
-    <p class="pull-right"><a href="#">Back to top</a></p>
-  </footer>
-  <br>
-  <hr class="featurette-divider">
-
-</div><!-- /.container -->
-
+    </section><!-- #content end -->
 {% endblock %}

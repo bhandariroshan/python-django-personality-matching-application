@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import User, UserProfile
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -30,6 +32,10 @@ class MyUserCreationForm(UserCreationForm):
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
 
+admin.site.unregister(Group)
+admin.site.unregister(Site)
+admin.autodiscover()
+
 
 @admin.register(User)
 class MyUserAdmin(AuthUserAdmin):
@@ -49,7 +55,7 @@ class MyUserAdmin(admin.ModelAdmin):
         Returns a QuerySet of all model instances that can be edited by the
         admin site. This is used by changelist_view.
         """
-        qs = self.model._default_manager.filter(signup_type=2)
+        qs = self.model._default_manager.filter()
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)

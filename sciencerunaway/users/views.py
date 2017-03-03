@@ -5,10 +5,10 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth import login
 
-# from .models import User
+from .models import User
 # from django.template import RequestContext
 
 from django.shortcuts import render

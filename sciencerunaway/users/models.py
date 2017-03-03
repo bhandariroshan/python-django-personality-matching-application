@@ -25,10 +25,12 @@ class User(AbstractUser):
 
 
 class UserProfile(models.Model):
-    choice_dropdown = [(1, 'Simple'), (2, 'Role Model')]
+    choice_dropdown = [(1, 'Girls'), (2, 'Role Model')]
     name = models.TextField(null=True, blank=True)
+    linkedin = models.TextField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
     user = models.OneToOneField(User, related_name='profile')
-    age = models.IntegerField()
+    age = models.IntegerField(default=0)
     signup_type = models.IntegerField(
         _('User Type'),
         choices=choice_dropdown,
@@ -37,7 +39,8 @@ class UserProfile(models.Model):
     has_quiz_attempted = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    qna = JSONField(default=[])
+    common_answers = JSONField(null=True, blank=True)
+    other_answers = JSONField(null=True, blank=True)
 
     def __unicode__(self):
         return self.user.username
