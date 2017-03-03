@@ -105,6 +105,7 @@ class SignupView(TemplateView):
             else:
                 # request.session.get('has_commented', False)
                 request.session['username'] = user.username
+                login(self.request, user)
                 return HttpResponseRedirect('/quiz/')
         else:
             return render(request, self.template_name, {'form': form})
