@@ -137,5 +137,3 @@ def main(answers, logfile = "database.log", mentor_files = "mentor_profiles.csv"
     match = get_mentor_match(answers, mentors)
     return match
 
-
-

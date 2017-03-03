@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.views import defaults as default_views
 from .views import AboutView, ContactView, HomeView
 from .views import MailView, GalleryView, QuizView
-from .views import ResultView, ProfileView
+from .views import ResultView, ProfileView, ProfileActivationView
 from sciencerunaway.users.views import SignupView
 
 urlpatterns = [
@@ -20,7 +20,8 @@ urlpatterns = [
     url(r'^gallery/$', GalleryView.as_view(), name='gallery'),
     url(r'^quiz/$', QuizView.as_view(), name='quiz'),
     url(r'^result/$', ResultView.as_view(), name='result'),
-    url(r'^profile/$', ProfileView.as_view(), name='profile'),
+    url(r'^profile/activation/$', ProfileActivationView.as_view(), name='profile'),
+    url(r'^profile/match/$', ProfileView.as_view(), name='profile'),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),

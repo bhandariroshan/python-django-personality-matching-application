@@ -86,6 +86,19 @@ class GalleryView(TemplateView):
         return render(request, self.template_name, {})
 
 
+class ProfileActivationView(TemplateView):
+    """Home page for students."""
+
+    template_name = 'pages/activate.html'
+
+    def get(self, request, *args, **kwargs):
+        """Method for get request of home page."""
+        # mk = links.keys()
+        # random.shuffle(mk)
+        # return render_template('gallery.html', images = mk[:16], profiles = profiles)
+        return render(request, self.template_name, {})
+
+
 class QuizView(TemplateView):
     """Quiz page for students."""
 
@@ -96,7 +109,12 @@ class QuizView(TemplateView):
         try:
             userprof = UserProfile.objects.get(user=request.user)
         except:
-            return HttpResponseRedirect('/')
+            username = request.session.get('username', '')
+            if username:
+                userprof = UserProfile.objects.get(user__username=username)
+            else:
+                return HttpResponseRedirect('/')
+
         mentors = Mentors.objects.filter(girl=userprof)
         if len(userprof.qna) > 0 and userprof.signup_type == 2:
             return HttpResponseRedirect('/profile/match/')
@@ -114,9 +132,9 @@ class ResultView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         """Method for get request of home page."""
+        questions = load_questions("questions_final.csv")
         name = request.POST['name']
         # description = request.POST['description']
-        questions = load_questions("questions_final.csv")
         answer = []
         for i in range(0, len(questions)):
             try:
@@ -124,11 +142,20 @@ class ResultView(TemplateView):
             except:
                 ans = ''
             answer.append(ans)
+        try:
+            userprof = UserProfile.objects.filter(user=request.user)
+        except:
+            username = request.session.get('username', '')
+            if username:
+                userprof = [UserProfile.objects.get(user__username=username)]
 
-        userprof = UserProfile.objects.filter(user=request.user)
-        if userprof[0].signup_type == 2:
-            userprof.qna = answer
-            userprof.save()
+        userprof[0].qna = answer
+        userprof[0].save()
+
+        if userprof[0].user.is_active:
+            return HttpResponseRedirect('/profile/match/')
+        else:
+            return HttpResponseRedirect('/profile/activation/')
 
         if name == 'Your name' or name == '':
             name = ''
@@ -165,7 +192,7 @@ class ResultView(TemplateView):
 class ProfileView(TemplateView):
     """Home page for students."""
 
-    template_name = 'pages/index.html'
+    template_name = 'pages/profile.html'
 
     def get(self, request, *args, **kwargs):
         """Method for get request of home page."""

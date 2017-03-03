@@ -8,9 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 
-from .models import User
+# from .models import User
+# from django.template import RequestContext
 
-from django.template import RequestContext
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import MySignupForm
@@ -85,6 +85,7 @@ class SignupView(TemplateView):
             signup_type = form.cleaned_data['signup_type']
             if signup_type == 2:
                 user.is_active = False
+                user.save()
 
             name = form.cleaned_data['name']
 
@@ -101,6 +102,8 @@ class SignupView(TemplateView):
                 login(self.request, user)
                 return HttpResponseRedirect('/quiz/')
             else:
-                return HttpResponseRedirect('/')
+                # request.session.get('has_commented', False)
+                request.session['username'] = user.username
+                return HttpResponseRedirect('/quiz/')
         else:
             return render(request, self.template_name, {'form': form})
