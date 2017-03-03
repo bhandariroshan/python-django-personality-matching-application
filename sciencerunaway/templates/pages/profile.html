@@ -224,7 +224,9 @@
             <div class="col-sm-3 clearfix">
 
               <div class="fancy-title topmargin title-border">
+                {% if userprof.bio %}
                 <h4>About Me</h4>
+                {% endif %}
               </div>
 
               <p>{{userprof.bio}}</p>

@@ -84,7 +84,8 @@ class SignupView(TemplateView):
             age = form.cleaned_data['age']
             signup_type = form.cleaned_data['signup_type']
             if signup_type == 2:
-                user.is_active = False
+                user.is_active = True
+                # user.is_active = False
                 user.save()
 
             name = form.cleaned_data['name']
