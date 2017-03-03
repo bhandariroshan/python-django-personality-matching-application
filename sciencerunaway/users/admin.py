@@ -42,4 +42,11 @@ class MyUserAdmin(AuthUserAdmin):
 
 @admin.register(UserProfile)
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'age', 'signup_type')
+    list_display = ('user', 'user_active', 'name', 'age', 'signup_type')
+
+    def user_active(self, obj):
+        if obj.user.is_active:
+            return True
+        else:
+            return False
+    user_active.boolean = True

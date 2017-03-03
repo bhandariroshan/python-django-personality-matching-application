@@ -42,6 +42,9 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+    def user_active(self):
+        return self.user.is_active
+
     class Meta:
         db_table = 'user_profile'
 
