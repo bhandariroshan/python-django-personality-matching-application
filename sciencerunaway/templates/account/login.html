@@ -1,48 +1,61 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
-{% load i18n %}
-{% load account socialaccount %}
-{% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block head_title %}Sign In{% endblock %}
 
-{% block inner %}
+{% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+<section id="content">
 
-{% get_providers as socialaccount_providers %}
+  <div class="content-wrap">
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+    <div class="container clearfix">
 
-<div class="socialaccount_ballot">
+      <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+        <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Login to your Account</div>
+        <div class="acc_content clearfix">
 
-  <div class="login-or">{% trans 'or' %}</div>
+          <form class="login" method="POST" action="/accounts/login/">
+            {% csrf_token %}
 
-</div>
+            {% if form.non_field_errors %}<p style="color: red;">{{form.non_field_errors.as_text}}</p> {% endif %}
+            {% if form.login.errors %} <p style="color: red;">{{form.login.errors.as_text}}</p> {% endif %}
 
-{% include "socialaccount/snippets/login_extra.html" %}
+            <div class="col_full">
+              <label for="login">Username:</label>
+              <input type="text" autofocus="autofocus" class="form-control" id="id_login" maxlength="150" name="login" placeholder="Username" type="text" required="" />
+            </div>
 
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
+            <div class="col_full">
+              <label for="login-form-password">Password:</label>
+              <input class="form-control" id="id_password" name="password" placeholder="Password" type="password" required=""/>
+            </div>
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-</form>
+            <div class="col_full">
+              <div id="div_id_remember" class="checkbox">
+                  <label for="id_remember" class="">
+                    <input class="checkboxinput" id="id_remember" name="remember" type="checkbox">
+                    Remember Me
+                  </label>
+              </div>
+            </div>
+
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <div class="col_full nobottommargin">
+              <a class="fright" href="#">Forgot Password?</a>
+              <button class="button button-3d button-black nomargin" type="submit">Login</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
 
