@@ -1,14 +1,99 @@
-{% extends 'base.html' %}
 
-{% block head_title %}The Science Runner {% endblock %}
+{% extends "base.html" %}
+
+
+{% block head_title %}Sign Up {% endblock %}
 
 {% block content %}
-	<div class="col-md-12">
-		<h3 style="text-align:center; margin-top:10px;">Create Account</h3>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}" style="width: 50%; margin-left: 25%;">
+  {% csrf_token %}
+  	{% comment %} {{ form.as_p }} {% endcomment %}
+	<div class="tab-content clearfix" id="tab-register">
+		<div class="panel panel-default nobottommargin">
+			<div class="panel-body" style="padding: 40px;">
+				<h3 style="text-align: center">Register for an Account</h3>
+				<p style="text-align: center">Already have an account? Then please <a href="/accounts/login/">sign in</a>.</p>
+
+				<form id="register-form" name="register-form" class="nobottommargin" action="#" method="post">
+				    {% if form.name.errors %} 
+			            <p style="color: red;"> {{form.name.errors.as_text}}</p>
+			        {% endif %}
+
+					<div class="col_full">
+						<label for="name">Name:</label>
+						<input  id="id_name" label="Name" name="name" placeholder="Enter Full Name" required="required" type="text" class="form-control" value="{% if form.name.value %} {{form.name.value}} {% endif %}" />
+					</div>
+
+			        {% if form.email.errors %} 
+			            <p style="color: red;"> {{form.email.errors.as_text}}</p>
+			        {% endif %}
+
+					<div class="col_full">
+						<label for="email">Email Address:</label>
+						<input id="id_email" label="Email" name="email" placeholder="Enter Email" type="email" required="required" class="form-control" value="{% if form.email.value %} {{form.email.value}} {% endif %}" />
+					</div>
+			        {% if form.username.errors %} 
+			            <p style="color: red;"> {{form.username.errors.as_text}}</p>
+			        {% endif %}
+					<div class="col_full">
+						<label for="username">Choose a Username:</label>
+						<input type="text" id="id_username" label="Username" required="required" name="username" maxlength="150" value="{% if form.username.value %} {{form.username.value}} {% endif %}" placeholder="Username" class="form-control" >
+					</div>
+
+			        {% if form.password1.errors %} 
+			            <p style="color: red;"> {{form.password1.errors.as_text}}</p>
+			        {% endif %}
+
+					<div class="col_full">
+						<label for="password1">Password:</label>
+						<input id="id_password1" label="Password" name="password1" required="required" placeholder="Password" type="password" class="form-control" value="{% if form.password1.value %} {{form.password1.value}} {% endif %}" />
+					</div>
+
+					{% if form.password2.errors %} 
+			            <p style="color: red;"> {{form.password2.errors.as_text}}</p>
+			        {% endif %}  
+
+					<div class="col_full">
+						<label for="password2">Re-enter Password:</label>
+						<input id="id_password2" label="Password" name="password2" placeholder="Password" required="required" type="password" value="{% if form.password2.value %} {{form.password2.value}} {% endif %}" class="form-control" />
+					</div>
+
+					{% if form.age.errors %} 
+			            <p style="color: red;"> {{form.age.errors.as_text}}</p>
+			        {% endif %}  
+
+					<div class="col_full">
+						<label for="id_age">Age:</label>
+						<input class="form-control stored" required="required" id="id_age" label="Age" name="age" value="{% if form.age.value %}{{ form.age.value }}{% endif %}" placeholder="Age eg: 30" type="number">
+					</div>
+
+					{% if form.signup_type.errors %} 
+			            <p style="color: red;"> {{form.signup_type.errors.as_text}}</p>
+			        {% endif %}  
+
+					<div class="col_full">
+						<label for="id_signup_type">Signup type:</label>
+						<select class="form-control stored form-date" id="id_signup_type" max-length="4" name="signup_type" placeholder="Signup as" required="">
+							<option {% if form.signup_type.value == '1' %} selected="selected" {% endif %} value="1">Girl</option>
+							<option {% if form.signup_type.value == '2' %} selected="selected" {% endif %} value="2">Role Model</option>
+						</select>
+					</div>
+
+					<div class="col_full nobottommargin">
+						
+						{% if redirect_field_value %}
+							<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						{% endif %}
+						<button type="submit" class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
 	</div>
-    <form method="POST" action=".">
-    	{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-sm btn-primary">
-    </form>
+
+</form>
+
 {% endblock %}
+
