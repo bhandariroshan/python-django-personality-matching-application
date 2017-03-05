@@ -68,7 +68,7 @@ class HomeView(TemplateView):
         """Method for get request of home page."""
         if request.user.is_superuser:
             return HttpResponseRedirect('/admin/')
-        return render(request, self.template_name, {})
+        return render(request, self.template_name, {'home': True})
 
 
 class AboutView(TemplateView):
@@ -163,7 +163,7 @@ class QuizView(TemplateView):
                 # questions = load_questions("questions_final.csv")
                 return render(request, self.template_girls, {})
             else:
-                return render(request, self.template_models, {})
+                return render(request, self.template_girls, {})
 
 
 class ResultView(TemplateView):

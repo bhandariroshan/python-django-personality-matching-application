@@ -32,23 +32,17 @@
               <input class="form-control" id="id_password" name="password" placeholder="Password" type="password" required=""/>
             </div>
 
-            <div class="col_full">
-              <div id="div_id_remember" class="checkbox">
-                  <label for="id_remember" class="">
-                    <input class="checkboxinput" id="id_remember" name="remember" type="checkbox">
-                    Remember Me
-                  </label>
-              </div>
-            </div>
-
             {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
 
-            <div class="col_full nobottommargin">
-              <a class="fright" href="#">Forgot Password?</a>
+            <div class="col_full nobottommargin" style="text-align:center">
+              <a class="" href="#">Forgot Password?</a>
+            </div>
+            <div class="col_full nobottommargin" style="text-align:center">
               <button class="button button-3d button-black nomargin" type="submit">Login</button>
             </div>
+            
 
           </form>
         </div>
