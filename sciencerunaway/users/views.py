@@ -83,18 +83,22 @@ class SignupView(TemplateView):
 
             age = form.cleaned_data['age']
             signup_type = form.cleaned_data['signup_type']
+            name = form.cleaned_data['name']
             if signup_type == 2:
                 user.is_active = True
+                user.name = name
                 # user.is_active = False
                 user.save()
 
-            name = form.cleaned_data['name']
+
+            model_pic = form.cleaned_data['image']
 
             user_profile = self.model.objects.create(
                 age=age,
                 signup_type=signup_type,
                 name=name,
-                user=user
+                user=user,
+                image=model_pic
             )
 
             user_profile.save()
@@ -108,4 +112,4 @@ class SignupView(TemplateView):
                 login(self.request, user)
                 return HttpResponseRedirect('/quiz/')
         else:
-            return render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, {'form': form, 'tab': 'signup'})

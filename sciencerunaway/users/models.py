@@ -30,6 +30,10 @@ class UserProfile(models.Model):
     linkedin = models.TextField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     user = models.OneToOneField(User, related_name='profile')
+    image = models.ImageField(
+        upload_to='userpics/',
+        default='/static/images/icons/avatar.jpg'
+    )
     age = models.IntegerField(default=0)
     signup_type = models.IntegerField(
         _('User Type'),

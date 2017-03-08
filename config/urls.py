@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
 from .views import AboutView, ContactView, HomeView
-from .views import MailView, GalleryView, QuizView
-from .views import ResultView, ProfileView, ProfileActivationView
+from .views import MailView, GalleryView, QuizView, MissionView
+from .views import ResultView, ProfileView, ProfileActivationView, ProfileLoad, RoleProfile
 from sciencerunaway.users.views import SignupView
 
 urlpatterns = [
@@ -16,12 +16,15 @@ urlpatterns = [
     url(r'^about/$', AboutView.as_view(), name='about'),
     url(r'^accounts/signup/$', SignupView.as_view(), name='signup'),
     url(r'^contacts/$', ContactView.as_view(), name='contact'),
+    url(r'^mission/$', MissionView.as_view(), name='mission'),
     url(r'^mailing/$', MailView.as_view(), name='mail'),
     url(r'^gallery/$', GalleryView.as_view(), name='gallery'),
     url(r'^quiz/$', QuizView.as_view(), name='quiz'),
     url(r'^result/$', ResultView.as_view(), name='result'),
-    url(r'^profile/activation/$', ProfileActivationView.as_view(), name='profile'),
-    url(r'^profile/match/$', ProfileView.as_view(), name='profile'),
+    url(r'^profile/activation/$', ProfileActivationView.as_view(), name='activate'),
+    url(r'^profile/load/$', ProfileLoad.as_view(), name='load'),
+    url(r'^profile/match/$', ProfileView.as_view(), name='match'),
+    url(r'^profile/rolemodels/$', RoleProfile.as_view(), name='match'),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),

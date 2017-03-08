@@ -96,6 +96,8 @@ class MySignupForm(SignupForm):
         choices=choice_dropdown
     )
 
+    image = forms.ImageField(required=False)
+
 
     def clean_name(self):
         if self.cleaned_data["name"]:
@@ -108,3 +110,7 @@ class MySignupForm(SignupForm):
     def clean_age(self):
         if self.cleaned_data["age"]:
             return int(self.cleaned_data.get("age"))
+
+    def clean_image(self):
+        if self.cleaned_data['image']:
+            return self.cleaned_data.get('image')

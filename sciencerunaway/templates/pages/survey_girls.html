@@ -1,327 +1,392 @@
 {% extends "base.html" %}
-{% block content %}
+{% block css %}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<!-- Begin page content -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 
-    <!-- Content
-    ============================================= -->
-    <section id="content">
-      <form method="POST" action="/result/">
-      {% csrf_token %}
-      <div class="content-wrap">
+  <style type="text/css">
+      .process-steps li {
+            float: left;
+            position: relative;
+            width: 8%;
+            text-align: center;
+            overflow: hidden;
+        }
 
-        <div class="container clearfix">
+        a {
+            color: #1ABC9C;
+            font-weight: 500;
+        }
 
-          <div id="processTabs">
-            <ul class="process-steps bottommargin clearfix">
-              <li>
-                <a href="#ptab1" class="i-circled i-bordered i-alt divcenter">1</a>
-                <h5 class="card-title"><b>Personality Info</b></h5>
-              </li>
-              <li>
-                <a href="#ptab2" class="i-circled i-bordered i-alt divcenter">2</a>
-                <h5>Personality Test</h5>
-              </li>
-              <li>
-                <a href="#ptab3" class="i-circled i-bordered i-alt divcenter">3</a>
-                <h5>Submit Test</h5>
-              </li>
-              <!-- <li>
-                <a href="#ptab4" class="i-circled i-bordered i-alt divcenter">4</a>
-                <h5>Order Complete</h5>
-              </li> -->
-            </ul>
-            <div>
-            <div id="ptab1">
-                <h6><i>Fill in a few simple questions about your self and find a role model who's just like you!</i></h6>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%">
-                    <label for="input_text" class="mdl-textfield__label">Name</label>
-                    <input type="text" name="name" class="mdl-textfield__input" id="input_text" />
-                </div>
+        .error {
+            outline: none !important;
+            border:1px solid red;
+            box-shadow: 0 0 10px #719ECE;
+        }
 
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%">
-                  <textarea class="mdl-textfield__input" required="required" name="bio" type="text" rows= "7" id="bio"></textarea>
-                  <label class="mdl-textfield__label" for="sample5">Tell us a little bit about yourself</label>
-                </div>
+        /*.accordion.accordion-bg .acctitle, .accordion.accordion-bg .acctitlec {
+            background-color: rgb(34, 179, 113);
+            line-height: 44px;
+            padding: 0 0 0 36px;
+            margin-bottom: 5px;
+            border-top: 0;
+        }
 
-                <a href="#" class="button button-3d nomargin fright tab-linker" rel="2">Checkout &rArr;</a>
+        .panel-default {
+            border-color: rgb(34, 179, 113);
+        }
 
-            </div>
-            <div id="ptab2">
-                <table style="width:100%">
-                    <tr><p style="font-size:18px">What best describes you? Select one option per row:</p></tr>
-                    <tr>
-                      <td>
-                        &nbsp;
-                      </td>
-                    </tr>
-                    <div>
-                        <tr>
-                          <td>
-                            <label for="option-1" class="" style="margin-top: 20px;">
-                                <span class="mdl-radio__label" style="font-size: 16px; "> At fifteen, I enjoyed:</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-11" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-11" name="common1" value="Drawing" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Drawing</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-12" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-12" name="common1" value="Writing" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Writing</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-13" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-13" name="common1" value="Painting" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Painting</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-14" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-14" name="common1" value="Sports" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Sports</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-15" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-15" name="common1" value="Going to the theater" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Going to the theater</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-16" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-16" name="common1" value="Being outdoors" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Being outdoors</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-17" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-17" name="common1" value="Playing with animals" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Playing with animals</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                    </div>
-                    <div>
-                        <tr>
-                          <td>
-                            <label for="option-1" class="" style="margin-top: 20px;">
-                                <span class="mdl-radio__label" style="font-size: 16px; "> At fifteen, my favorite subjects were:</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-21" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-21" name="common2" value="Math" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Math</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-22" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-22" name="common2" value="History" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">History</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-23" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-23" name="common2" value="Biology" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Biology</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-24" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-24" name="common2" value="Chemistry" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Chemistry</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-25" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-25" name="common2" value="English" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">English</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                    </div>
+        .acctitle {
+            display: block;
+            position: relative;
+            line-height: 24px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-top: 1px dotted #DDD;
+            padding: 10px 0 10px 20px;
+        }*/
 
-                    <div>
-                        <tr>
-                          <td>
-                            <label for="option-1" class="" style="margin-top: 20px;">
-                                <span class="mdl-radio__label" style="font-size: 16px; "> I preferred:</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-31" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-31" name="common3" value="Working alone" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Working alone</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-32" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-32" name="common3" value="Working in a group" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Working in a group</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                    </div> 
-
-                    <div>
-                        <tr>
-                          <td>
-                            <label for="option-1" class="" style="margin-top: 20px;">
-                                <span class="mdl-radio__label" style="font-size: 16px; "> I preferred:</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-41" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-41" name="common4" value="Creating something new" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Creating something new</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-42" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-42" name="common4" value="Discovering something new" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Discovering something new</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                    </div> 
-
-                    <div>
-                        <tr>
-                          <td>
-                            <label for="option-1" class="" style="margin-top: 20px;">
-                                <span class="mdl-radio__label" style="font-size: 16px; "> I preferred:</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-51" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-51" name="common5" value="Working in a team" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Working in a team</span>
-                            </label>
-                          </td>
-                          <td> </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label for="common-52" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                                <input type="radio" class="mdl-radio__button" id="common-52" name="common5" value="Leading a team" />
-                                <span class="mdl-radio__label" style="font-size: 12px;">Leading a team</span>
-                            </label>
-                          </td>
-                          <td></td>
-                        </tr>
-                    </div> 
-                </table>
-                <div class="line"></div>
-                <a href="#" class="button button-3d nomargin tab-linker" rel="1">Previous</a>
-                <a href="#" class="button button-3d nomargin fright tab-linker" rel="3">Pay Now</a>
-            </div>
-            <div id="ptab3">
-                <div class="alert alert-success">
-                  <strong>Thank You.</strong> Your order will be processed once we verify the Payment.
-                </div>
-                <div class="line"></div>
-                <a href="#" class="button button-3d nomargin tab-linker" rel="2">Previous</a>
-                <button class="button button-3d nomargin fright tab-linker" type="submit" class="btn btn-mdb">Submit</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      </form>
-    </section><!-- #content end -->
+  </style>
 
 {% endblock %}
 
+{% block content %}
+<!-- Content
+============================================= -->
+<section id="page-title">
+  <div class="container clearfix">
+    <h1 style="text-align:center">Get Matched</h1>
+  </div>
+</section><!-- #page-title end -->
+
+<section id="content">
+  <form method="POST" id="myform" action="/result/">
+    {% csrf_token %}
+    <div class="content-wrap">
+      <div class="container clearfix">
+        <div class="panel panel-default nobottommargin"  style="margin-top: -4%;">
+           <div class="accordion accordion-bg clearfix">
+                <div class="panel panel-body">
+                  <div class="accordion accordion-bg clearfix">
+                    <div class="acctitle">
+                          <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Name
+                    </div>
+                    <div class="acc_content clearfix">
+                        <input type="text" class="sm-form-control" name="name" class="" id="input_text" />
+                    </div>
+                  </div>
+
+                  <div class="accordion accordion-bg clearfix">
+                    <div class="acctitle required1">
+                          <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Tell us a little bit about yourself
+                    </div>
+                    <div class="acc_content clearfix">
+                        <textarea class="sm-form-control requiredval" required="required" name="bio" type="text" rows= "7" id="bio"></textarea>
+                    </div>
+                  </div>
+
+
+                  <h3 style="font-size:18px">What best describes you? Select one option per row:</h3>
+                  <div class="accordion accordion-bg clearfix">
+                      <div class="acctitle">
+                            <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                            At fifteen, I enjoyed:
+                      </div>
+                      <div class="acc_content clearfix">
+                        <table style="width:100%">
+                            <tr>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            <div>
+                                <tr>
+                                  <td>
+                                    <label for="common-11" class="">
+                                        <input type="radio" id="common-11" name="common1" value="Drawing" />
+                                        <span class="" style="font-size: 12px;">Drawing</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-12" class="">
+                                        <input type="radio" class="" id="common-12" name="common1" value="Writing" />
+                                        <span class="" style="font-size: 12px;">Writing</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-13" class="">
+                                        <input type="radio" class="" id="common-13" name="common1" value="Painting" />
+                                        <span class="" style="font-size: 12px;">Painting</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-14" class="">
+                                        <input type="radio" class="" id="common-14" name="common1" value="Sports" />
+                                        <span class="" style="font-size: 12px;">Sports</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-15" class="">
+                                        <input type="radio" class="" id="common-15" name="common1" value="Going to the theater" />
+                                        <span class="" style="font-size: 12px;">Going to the theater</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-16" class="">
+                                        <input type="radio" class="" id="common-16" name="common1" value="Being outdoors" />
+                                        <span class="" style="font-size: 12px;">Being outdoors</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-17" class="">
+                                        <input type="radio" class="" id="common-17" name="common1" value="Playing with animals" />
+                                        <span class="" style="font-size: 12px;">Playing with animals</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                            </div>
+                        </table>
+                      </div>
+                  </div>
+
+                  <div class="accordion accordion-bg clearfix">
+                      <div class="acctitle">
+                            <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                            At fifteen, my favorite subjects were:
+                      </div>
+                      <div class="acc_content clearfix">
+                        <table style="width:100%">
+                            <tr>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            <div>
+                                <tr>
+                                  <td>
+                                    <label for="option-1" class="" style="margin-top: 20px;">
+                                        <span class="" style="font-size: 16px; "> At fifteen, my favorite subjects were:</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-21" class="">
+                                        <input type="radio" class="" id="common-21" name="common2" value="Math" />
+                                        <span class="" style="font-size: 12px;">Math</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-22" class="">
+                                        <input type="radio" id="common-22" name="common2" value="History" />
+                                        <span class="" style="font-size: 12px;">History</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-23" class="">
+                                        <input type="radio" id="common-23" name="common2" value="Biology" />
+                                        <span class="" style="font-size: 12px;">Biology</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-24" class="">
+                                        <input type="radio" id="common-24" name="common2" value="Chemistry" />
+                                        <span class="" style="font-size: 12px;">Chemistry</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-25" class="">
+                                        <input type="radio" id="common-25" name="common2" value="English" />
+                                        <span class="" style="font-size: 12px;">English</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                            </div>
+                        </table>
+                      </div>
+                  </div>
+
+                  <div class="accordion accordion-bg clearfix">
+                      <div class="acctitle">
+                            <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                            At fifteen, my favorite subjects were:
+                      </div>
+                      <div class="acc_content clearfix">
+                        <table style="width:100%">
+                            <tr>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+
+                            <div>
+                                <tr>
+                                  <td>
+                                    <label for="common-31" class="">
+                                        <input type="radio" class="" id="common-31" name="common3" value="Working alone" />
+                                        <span class="" style="font-size: 12px;">Working alone</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-32" class="">
+                                        <input type="radio" class="" id="common-32" name="common3" value="Working in a group" />
+                                        <span class="" style="font-size: 12px;">Working in a group</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                            </div> 
+                        </table>
+                      </div>
+                  </div>
+
+                  <div class="accordion accordion-bg clearfix">
+                      <div class="acctitle">
+                            <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                            I preferred:
+                      </div>
+                      <div class="acc_content clearfix">
+                        <table style="width:100%">
+                            <tr>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+
+                            <div>
+                                <tr>
+                                  <td>
+                                    <label for="common-41" class="">
+                                        <input type="radio" class="" id="common-41" name="common4" value="Creating something new" />
+                                        <span class="" style="font-size: 12px;">Creating something new</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-42" class="">
+                                        <input type="radio" class="" id="common-42" name="common4" value="Discovering something new" />
+                                        <span class="" style="font-size: 12px;">Discovering something new</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                            </div> 
+                        </table>
+                      </div>
+                  </div>
+
+                  <div class="accordion accordion-bg clearfix">
+                      <div class="acctitle">
+                            <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                            I preferred:
+                      </div>
+                      <div class="acc_content clearfix">
+                        <table style="width:100%">
+                            <tr><p style="font-size:18px">What best describes you? Select one option per row:</p></tr>
+                            <tr>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr> 
+
+                            <div>
+                                <tr>
+                                  <td>
+                                    <label for="common-51" class="">
+                                        <input type="radio" class="" id="common-51" name="common5" value="Working in a team" />
+                                        <span class="" style="font-size: 12px;">Working in a team</span>
+                                    </label>
+                                  </td>
+                                  <td> </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <label for="common-52" class="">
+                                        <input type="radio" class="" id="common-52" name="common5" value="Leading a team" />
+                                        <span class="" style="font-size: 12px;">Leading a team</span>
+                                    </label>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                            </div> 
+                        </table>
+                      </div>
+                  </div>
+              </div>
+
+            <div style="text-align:center; margin-bottom: 30px;">
+                <button class="button button-3d nomargin" type="submit" class="btn btn-mdb">Submit</button>
+            </div>
+          </div>
+        
+
+      </div>
+    </div>
+  </form>
+</section><!-- #content end -->
+{% endblock %}
+
 {% block javascript %}
-  <script type="text/javascript">
-      function validateForm(){
-        var bio_value = $('#bio').val();
-        if (bio_value.length < 10){
-          alert('Please enter something about yourself.')
-          return false;
-        }
-        else{
-          return true;
-        }
-      }
-  </script>
+<script type="text/javascript">
+  $('.requiredval').on('focus', function(){
+    var requiredval = $(this).val();
 
-  <script type="text/javascript" src="js/functions.js"></script>
+    if ($(this).attr('required') && requiredval.length < 1){
+      $(this).addClass('error');
+    }
+    else{
+      $(this).removeClass('error'); 
+    }
 
-  <script type="text/javascript">
+  }); 
 
-    $(function() {
-      $( "#processTabs" ).tabs({ show: { effect: "fade", duration: 400 } });
-      $( ".tab-linker" ).click(function() {
-        $( "#processTabs" ).tabs("option", "active", $(this).attr('rel') - 1);
-        return false;
-      });
-    });
-  </script>
+  $('.requiredval').on('change', function(){
+    if ($(this).val().length >= 1){
+      $(this).removeClass('error'); 
+    }
 
+  }); 
+
+</script>
 {% endblock %}

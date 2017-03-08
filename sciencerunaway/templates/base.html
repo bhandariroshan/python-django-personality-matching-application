@@ -37,7 +37,7 @@
             transition: margin .4s ease, padding .4s ease;
         }
   </style>
-
+  {% block css %} {% endblock %}
 
 </head>
 
@@ -70,14 +70,17 @@
           <nav id="primary-menu">
 
             <ul>
-              <li class="mega-menu"><a href="/contacts/"><div>Contacts</div></a></li>
-              <li class="mega-menu"><a href="#"><div>Get Matched</div></a></li>
-              <li class="mega-menu"><a href="#"><div>Role Models</div></a></li>
+              <li class="mega-menu"><a  {% if tab == 'contact' %} style="color: #1ABC9C;" {% endif %} href="/contacts/"><div>Contact Us</div></a></li>
+              <!-- <li class="mega-menu"><a href="#"><div>Get Matched</div></a></li> -->
+              <li class="mega-menu"><a {% if tab == 'role' %} style="color: #1ABC9C;" {% endif %} href="/profile/rolemodels/"><div>Role Models</div></a></li>
+
+              <li class="mega-menu"><a  {% if tab == 'mission' %} style="color: #1ABC9C;" {% endif %} href="/mission/"><div>Mission</div></a></li>
+
               {% if request.user.is_authenticated %}
                 <li class="mega-menu"><a href="/accounts/logout/"><div>Logout</div></a></li>
               {% else %}
-                <li class="mega-menu"><a href="/accounts/signup/"><div>Sign Up</div></a></li>
-                <li class="mega-menu"><a href="/accounts/login/"><div>Sign In</div></a></li>
+                <li class="mega-menu"><a href="/accounts/signup/"   {% if 'signup' in request.path %} style="color: #1ABC9C;" {% endif %}><div>Sign Up</div></a></li>
+                <li class="mega-menu"><a href="/accounts/login/"   {% if 'login' in request.path %} style="color: #1ABC9C;" {% endif %}><div>Sign In</div></a></li>
               {% endif %}
             </ul>
 
@@ -94,24 +97,24 @@
     {% endblock %}
 
 
-        <!-- Footer
-        ============================================= -->
-        <footer id="footer" class="dark" {% if home %} style="margin-top:-80px" {% endif %}>
+  <!-- Footer
+  ============================================= -->
+  <footer id="footer" class="dark" {% if home %} style="margin-top:-80px" {% endif %}>
 
-            <!-- Copyrights
-            ============================================= -->
-            <div id="copyrights">
+      <!-- Copyrights
+      ============================================= -->
+      <div id="copyrights">
 
-                <div class="" style="text-align:center;">
-                    This website was created by the girls of the <a href="http://paly.net/"> Palo Alto High School AWD Club. </a>
-                    Content sponsored by <a href="https://twitter.com/sciencerunway"> @TheScienceRunway project. </a> <br>
-                    <!-- <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div> -->
-                </div>
-                <div class="container clearfix"></div>
+          <div class="" style="text-align:center;">
+              This website was created by the girls of the <a href="http://paly.net/"> Palo Alto High School AWD Club. </a>
+              Content sponsored by <a href="https://twitter.com/sciencerunway"> @TheScienceRunway project. </a> <br>
+              <!-- <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div> -->
+          </div>
+          <div class="container clearfix"></div>
 
-            </div><!-- #copyrights end -->
+      </div><!-- #copyrights end -->
 
-        </footer><!-- #footer end -->    <!--/.Footer-->
+  </footer><!-- #footer end -->    <!--/.Footer-->
 </div>    
       <!-- Go To Top
   ============================================= -->
@@ -126,5 +129,6 @@
   ============================================= -->
   <script type="text/javascript" src="/static/js/functions.js"></script>
   {% block javascript %} {% endblock %}
+  
   </body>
 </html>

@@ -1,245 +1,105 @@
 {% extends "base.html" %}
+{% block css %}
+<style type="text/css">
+  /*.accordion.accordion-bg .acctitle, .accordion.accordion-bg .acctitlec {
+            background-color: rgb(34, 179, 113);
+            line-height: 44px;
+            padding: 0 0 0 36px;
+            margin-bottom: 5px;
+            border-top: 0;
+        }
+
+        .panel-default {
+            border-color: rgb(34, 179, 113);
+        }
+
+        .acctitle {
+            display: block;
+            position: relative;
+            line-height: 24px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-top: 1px dotted #DDD;
+            padding: 10px 0 10px 20px;
+        }*/
+</style>
+{% endblock %}
 {% block content %}
-    <!-- Content
-    ============================================= -->
-    <section id="content">
+<section id="page-title">
 
-      <div class="content-wrap">
+  <div class="container clearfix">
+    <h1 style="text-align:center">Your Mentor!</h1>
+  </div>
 
-        <div class="container clearfix">
+</section><!-- #page-title end -->
 
-          <div class="row clearfix">
+<section id="content">
 
-            <div class="col-sm-9">
+  <div class="content-wrap">
 
-              <img src="/static/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
-
-              <div class="heading-block noborder">
-                <h3>{{mentor.mentor.name}}</h3>
-                <span>Mentor</span>
-              </div>
-
-              <div class="clear"></div>
-
-              <div class="row clearfix">
-
-                <div class="col-md-12">
-
-                  <div class="tabs tabs-alt clearfix" id="tabs-profile">
-
-                    <ul class="tab-nav clearfix">
-                      <li><a href="#tab-feeds"><i class="icon-"></i>Feeds</a></li>
-                      {% if userprof.signup_type == 2 %}
-                      <li><a href="#tab-connections"><i class="icon-users"></i> Connections </a></li>
-                      {% endif %}
-                    </ul>
-
-                    <div class="tab-container">
-
-                      <div class="tab-content clearfix" id="tab-feeds">
-                      {% if userprof.signup_type == 1 %}
-                        <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium harum ea quo! Nulla fugiat earum, sed corporis amet iste non, id facilis dolorum, suscipit, deleniti ea. Nobis, temporibus magnam doloribus. Reprehenderit necessitatibus esse dolor tempora ea unde, itaque odit. Quos.</p>
-                      {% endif %}
-                        <div class="table-responsive">
-                        <p><h3> Personality Questions </h3></p>
-                        <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1">Tell us a little bit about yourself: </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.0}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.0}} </p>
-                          {% endif %}
-                        </div>
-
-                        <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1">What do you do every day? </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.1}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.1}} </p>
-                          {% endif %}
-                        </div>
-
-                        <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1"> Why do you love it? </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.2}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.2}} </p>
-                          {% endif %}
-                        </div>
-
-                        <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1">What were your moments of fear/challenges in your career? </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.3}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.3}} </p>
-                          {% endif %}
-                        </div>
-
-                         <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1">What are some of the innovations in science that you are most excited about? </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.5}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.5}} </p>
-                          {% endif %}
-                        </div>
-
-                         <div style="width:100%">
-                          <label class="mdl-textfield__label" for="question1">Where did you grow up? </label>
-                          {% if userprof.signup_type == 2 %}
-                              <p> {{userprof.name}}: {{userprof.other_answers.6}} </p>
-                          {% endif %}
-                          {% if userprof.signup_type == 1 %}
-                              <p> {{mentor.mentor.name}}: {{mentor.mentor.other_answers.6}} </p>
-                          {% endif %}
-                        </div>
-                        <p><h3>Match Questions </h3></p>
-                        <table class="table table-bordered table-striped">
-                            <colgroup>
-                            <col class="col-xs-1">
-                            <col class="col-xs-7">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                              {% if userprof.signup_type == 1 %}
-                              <th colspan="2">Mentor</th>
-                              {% endif %}
-                              <th colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>Question</th>
-                              <th colspan="2">Me</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                              {% if userprof.signup_type == 1 %}
-                                <td colspan="2">{{mentor.mentor.common_answers.0}}</td>
-                              {% endif %}
-                              <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
-                                <code>At fifteen, I enjoyed</code>
-                              </td>
-                              <td colspan="2">{{userprof.common_answers.0}}</td>
-                            </tr>
-                            <tr>
-                                {% if userprof.signup_type == 1 %}
-                                <td colspan="2">{{mentor.mentor.common_answers.1}}</td>
-                                {% endif %}
-                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
-                                    <code>At fifteen, my favorite subjects were:</code>
-                                </td>
-                                <td colspan="2">{{userprof.common_answers.1}}</td>
-                            </tr>
-                            <tr>
-                                {% if userprof.signup_type == 1 %}
-                                <td colspan="2">{{mentor.mentor.common_answers.2}}</td>
-                                {% endif %}
-                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
-                                    <code>I Preferred</code>
-                                </td>
-                                <td colspan="2">{{userprof.common_answers.2}}</td>
-                            </tr>
-                            <tr>
-                                {% if userprof.signup_type == 1 %}
-                                  <td colspan="2">{{mentor.mentor.common_answers.3}}</td>
-                                {% endif %}
-                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
-                                    <code>I Preferred</code>
-                                </td>
-                                <td colspan="2">{{userprof.common_answers.3}}</td>
-                            </tr>
-                            <tr>
-                                {% if userprof.signup_type == 1 %}
-                                  <td colspan="2">{{mentor.mentor.common_answers.4}}</td>
-                                {% endif %}
-                                <td colspan="2" {% if userprof.signup_type == 1 %} style="text-align:center" {% endif %}>
-                                    <code>I Preferred</code>
-                                </td>
-                                <td colspan="2">{{userprof.common_answers.4}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        </div>
-
-                      </div>
-
-                      {% if userprof.signup_type == 2 %}
-                      <div class="tab-content clearfix" id="tab-connections">
-
-                        <div class="row topmargin-sm">
-                          <div class="col-md-3 col-sm-6 bottommargin">
-
-                            <div class="team">
-                              <div class="team-image">
-                                <img src="/static/images/team/3.jpg" alt="John Doe">
-                              </div>
-                              <div class="team-desc">
-                                <div class="team-title">
-                                    <h4>John Doe</h4>
-                                    <span></span>
-                                </div>
-                              </div>
-                            </div>
-
-
-                            {% for each_connection in  girls %}
-                                <div class="team">
-                                    <div class="team-image">
-                                      <img src="/static/images/team/3.jpg" alt="John Doe">
-                                    </div>
-                                    <div class="team-desc">
-                                      <div class="team-title">
-                                          <h4>{{each_girl.name}}</h4>
-                                          <span></span>
-                                      </div>
-                                    </div>
-                                  </div>
-                            {%  endfor %}
-
-                          </div>
-
-                        </div>
-
-                      </div>
-                      {% endif %}
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="line visible-xs-block"></div>
-
-            <div class="col-sm-3 clearfix">
-
-              <div class="fancy-title topmargin title-border">
-                {% if userprof.bio %}
-                <h4>About Me</h4>
-                {% endif %}
-              </div>
-
-              <p>{{userprof.bio}}</p>
-
-              
-
-            </div>
-
+    <div class="container clearfix">
+      <div style="margin-bottom: 20px;">
+          <div class="postcontent nobottommargin col_last clearfix">
+            <p>{{mentor.bio}}</p>
           </div>
 
-        </div>
+          <!-- Sidebar
+          ============================================= -->
+          <div class="sidebar nobottommargin clearfix">
+            <div class="sidebar-widgets-wrap">
 
+              <div class="widget subscribe-widget clearfix">
+                <div class="dark" style="padding: 30px; background-color: #383838; border-radius: 2px; text-align:center">
+                  {% if mentor.image %}
+                    <img src="{{mentor.image}}" class="img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 156px;">
+                   {% else %}
+                      <img src="/static/images/icons/avatar.jpg" class="img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 156px;">
+                  {% endif %}
+                  <div class="fancy-title title-border" style="margin-top: 30px;">
+                    <h4>{{mentor.name}}</h4>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- .sidebar end -->
       </div>
 
-    </section><!-- #content end -->
+      <!-- Post Content
+      ============================================= -->
+      <div class="clearfix" style="margin-top: 350px;">
+        {% for each_qa in mentor.other_answers %}
+            {% if each_qa.1 %}
+              <div class="accordion accordion-bg clearfix">
+                    <div class="acctitle">
+                    <i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>
+                      {{each_qa.0}}
+                  </div>
+                  <div class="acc_content clearfix">
+                    <p>{{each_qa.1}}</p>
+                  </div>
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div><!-- .postcontent end -->
+
+
+    </div>
+
+  </div>
+</section>
+
+<!-- #content end -->
+
+<section id="content">
+  <div class="content-wrap">
+    <div class="container clearfix">
+
+    </div>
+  </div>
+</section><!-- #content end -->
+
 {% endblock %}

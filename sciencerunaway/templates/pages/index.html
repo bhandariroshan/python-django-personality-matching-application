@@ -9,14 +9,16 @@
             <div class="slider-caption slider-caption-center">
                 <h2 data-animate="fadeInUp">Welcome to The Science Runway</h2>
                 <p data-animate="fadeInUp" data-delay="200">.</p>
+                {% if not request.user.is_authenticated %}
                 <a data-animate="fadeInUp" data-delay="400" href="/accounts/login/" class="button button-border button-light button-rounded button-large noleftmargin nobottommargin" style="margin-top: 30px;">Log In</a>
                 <a data-animate="fadeInUp" data-delay="600" href="/accounts/signup/" class="button button-3d button-large nobottommargin" style="margin: 30px 0 0 10px;">Sign up</a>
+                {% endif %}
             </div>
         </div>
         <div class="video-wrap">
-            <video poster="/static/images/videos/messiermarathon.jpg" preload="none" loop autoplay muted style="width: 1349px; height: 759px; top: -129.5px;">
+            <video poster="/static/images/videos/messiermarathon.jpg" controls="true" preload="none"  loop autoplay muted style="width: 1349px; min-height: 759px; top: -129.5px;">
                 <source src="/static/images/videos/messiermarathon.mp4" type="video/mp4">
-                <source src="/static/images/videos/messiermarathon.webm" type="video/webm">
+                <source src="/static/images/videos/messiermarathon.webm" type="video/webm; codecs=vp8, vorbis;">
             </video>
             <div class="video-overlay" style="background-color: rgba(0,0,0,0.45);"></div>
         </div>
@@ -25,7 +27,6 @@
 
 </section>
 
-    
     <div class="col_full bottommargin-lg common-height">
 
         <div class="col-md-4 dark col-padding ohidden" style="background-color: #1abc9c;">
