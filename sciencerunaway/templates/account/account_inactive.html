@@ -1,12 +1,16 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
-{% load i18n %}
+{% block content %}
 
-{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+<section id="page-title" style="min-height:500px;">
 
-{% block inner %}
-<h1>{% trans "Account Inactive" %}</h1>
+  <div class="container clearfix">
+  
+      <h1 style="text-align:center">Account Inactive!</h1>
+	  <p style="text-align:center">"This account is inactive."</p>
+ 
+  </div>
 
-<p>{% trans "This account is inactive." %}</p>
+</section><!-- #page-title end -->
 {% endblock %}
 

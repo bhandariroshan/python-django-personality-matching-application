@@ -15,7 +15,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import MySignupForm
 from .models import UserProfile
-
+from base64 import b64encode
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
@@ -87,18 +87,28 @@ class SignupView(TemplateView):
             if signup_type == 2:
                 user.is_active = True
                 user.name = name
-                # user.is_active = False
+                user.is_active = False
                 user.save()
 
+            if request.FILES.get('image', '') != '':
+                model_pic = request.FILES.get('image', '')
 
-            model_pic = form.cleaned_data['image']
+                destination = open('filename.jpg', 'wb')
+                destination.write(model_pic.read())
+                destination.close()
+
+                mpic = open('filename.jpg', 'rb')
+                mpic_data = mpic.read()
+                mpic.close()
+
+                jpgdata = 'data:;base64,' + b64encode(mpic_data).decode()
 
             user_profile = self.model.objects.create(
                 age=age,
                 signup_type=signup_type,
                 name=name,
                 user=user,
-                image=model_pic
+                image=jpgdata
             )
 
             user_profile.save()

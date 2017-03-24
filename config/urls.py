@@ -6,9 +6,13 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
+
 from .views import AboutView, ContactView, HomeView
 from .views import MailView, GalleryView, QuizView, MissionView
-from .views import ResultView, ProfileView, ProfileActivationView, ProfileLoad, RoleProfile
+from .views import ResultView, ProfileView, ProfileActivationView
+from .views import ProfileLoad, RoleProfile, ApproveAccount, ConnectionView
+from .views import GirlProfileView
+
 from sciencerunaway.users.views import SignupView
 
 urlpatterns = [
@@ -24,7 +28,12 @@ urlpatterns = [
     url(r'^profile/activation/$', ProfileActivationView.as_view(), name='activate'),
     url(r'^profile/load/$', ProfileLoad.as_view(), name='load'),
     url(r'^profile/match/$', ProfileView.as_view(), name='match'),
-    url(r'^profile/rolemodels/$', RoleProfile.as_view(), name='match'),
+    url(r'^profile/rolemodels/$', RoleProfile.as_view(), name='roles'),
+    url(r'^profile/(?P<profileid>[-\w]+)/$', ProfileView.as_view(), name='verify'),
+    url(r'^girlprofile/(?P<profileid>[-\w]+)/$', GirlProfileView.as_view(), name='girlprofile'),
+    url(r'^connections/(?P<profile_id>[-\w]+)/$', ConnectionView.as_view(), name='connections'),
+    url(r'^admin/approve/$', ApproveAccount.as_view(), name='approve'),
+
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),

@@ -12,6 +12,7 @@ from sciencerunaway.users.models import UserProfile, Mentors
 from sciencerunaway.users.models import User
 from django.template.defaulttags import register
 import random
+from base64 import b64encode
 
 
 MAILING_LIST = "mailing_list.txt"
@@ -642,10 +643,16 @@ def load_mentors():
                             c_ans.append([str(common_questions[4]), q5a[count]])
                             break
 
+        img = open('./media/userpics/' + str(each_mentor['Mentor Name']) + '.jpg', 'rb')
+        jpgdata = img.read()
+        img.close()
+
+        jpgdata = 'data:;base64,' + b64encode(jpgdata).decode()
+
         UserProfile.objects.create(
             bio=each_mentor['Biography'],
             name=each_mentor['name'],
-            image='/static/images/' + str(each_mentor['Mentor Name']) + '.jpg',
+            image=jpgdata,
             user=User.objects.create_user(
                 username=each_mentor['Mentor Name'],
                 email=each_mentor['Mentor Name'] + '@gmail.com',
@@ -711,7 +718,10 @@ class RoleProfile(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """Method for get request of home page."""
-        rolemodels = UserProfile.objects.filter(signup_type=2)
+        rolemodels = UserProfile.objects.filter(signup_type=2, user__is_active=True)
+        for each_rolemodels in rolemodels:
+            each_rolemodels.image = each_rolemodels.image
+
         return render(request, self.template_name, {'rolemodels': rolemodels, 'tab': 'role'})    
         
 class HomeView(TemplateView):
@@ -736,6 +746,17 @@ class AboutView(TemplateView):
     def get(self, request, *args, **kwargs):
         """Method for get request of home page."""
         return render(request, self.template_name, {'tab': 'about'})
+
+
+class ApproveAccount(TemplateView):
+    """Home page for students."""
+
+    template_name = 'pages/approve.html'
+
+    def get(self, request, *args, **kwargs):
+        """Method for get request of home page."""
+        rolemodels = UserProfile.objects.filter(signup_type=2, user__is_active=False)
+        return render(request, self.template_name, {'models': rolemodels})
 
 
 class ContactView(TemplateView):
@@ -830,10 +851,37 @@ class QuizView(TemplateView):
         else:
             if userprof.signup_type == 1:
                 # questions = load_questions("questions_final.csv")
-                return render(request, self.template_models, {})
+                return render(request, self.template_girls, {})
             else:
                 return render(request, self.template_models, {})
 
+class ConnectionView(TemplateView):
+    template = 'pages/connections.html'
+
+    def get(self, request, profile_id, *args, **kwargs):
+        """Method for get request of home page."""
+        userprof = UserProfile.objects.get(id=int(profile_id))
+        userprof.image = userprof.image
+        if userprof.user.id != request.user.id:
+            return HttpResponseRedirect('/')
+
+        all_connected_girls = Mentors.objects.filter(mentor__id=int(profile_id))
+
+        for each_conn in all_connected_girls:
+            if each_conn.girl:
+                each_conn.girl.image = each_conn.girl.image
+            if each_conn.mentor:
+                each_conn.mentor.image = each_conn.mentor.image
+
+        return render(
+            request,
+            self.template,
+            {
+                'connections': all_connected_girls,
+                'userprof': userprof
+            }
+        )
+        
 
 class ResultView(TemplateView):
     """Home page for students."""
@@ -850,7 +898,7 @@ class ResultView(TemplateView):
                 userprof = [UserProfile.objects.get(user__username=username)]
 
         myprofile = userprof[0]
-
+        myprofile.image = myprofile.image
         name = request.POST.get('name', '')
         linkedin = request.POST.get('linkedin', '')
         bio = request.POST.get('bio', '')
@@ -891,26 +939,72 @@ class ResultView(TemplateView):
             return HttpResponseRedirect('/profile/activation/')
 
 
+class GirlProfileView(TemplateView):
+    """docstring for GirlProfileView"""
+    template_name = 'pages/girlprofile.html'    
+    def get(self, request, *args, **kwargs):
+        """Method for get request of home page."""
+        profile_id = self.kwargs.get('profileid')
+        userprof = UserProfile.objects.get(id=int(profile_id))
+        if userprof:
+            userprof.image = userprof.image
+        return render(
+            request,
+            self.template_name,
+            {
+                'girl': userprof
+            }
+        )
+        
+
 class ProfileView(TemplateView):
     """Home page for students."""
 
     template_name = 'pages/profile.html'
 
+    def post(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            profile_id = self.kwargs.get('profileid')
+            mentors = UserProfile.objects.filter(id=int(profile_id))
+            mentor = mentors[0]
+
+            mentor.user.is_active = True
+            mentor.user.save()
+            if mentor:
+                mentor.image = mentor.image
+            return render(
+                request,
+                self.template_name,{'mentor': mentor}
+            )
+
+
     def get(self, request, *args, **kwargs):
         """Method for get request of home page."""
+        if request.user.is_superuser:
+            profile_id = self.kwargs.get('profileid')
+            mentors = UserProfile.objects.filter(id=int(profile_id))
+            mentor = mentors[0]
+            if mentor:
+                mentor.image = mentor.image
+            return render(
+                request,
+                self.template_name,{'mentor': mentor}
+            )
+
         userprof = UserProfile.objects.get(user=request.user)
+        userprof.image = userprof.image
         # mentor = match_mentor(request.user)
         if userprof.signup_type == 1:
             mentors = Mentors.objects.filter(girl=userprof)
             if len(mentors) == 0:
                 mentor = match_mentor(request.user)
+                if mentor:
+                    mentor.image = mentor.image
             else:
                 mentor = mentors[0].mentor
-        else:
-            girls = Mentors.objects.filter(mentor=userprof)
+                if mentor:
+                    mentor.image = mentor.image
 
-
-        if userprof.signup_type == 1:
             return render(
                 request,
                 self.template_name,
@@ -920,11 +1014,16 @@ class ProfileView(TemplateView):
                 }
             )
         else:
+            girls = Mentors.objects.filter(mentor=userprof)
+            for each_g in girls:
+                each_g.girl.image = each_g.girl.image
+
             return render(
                 request,
                 self.template_name,
                 {
                     'girls': girls,
-                    'mentor': userprof
+                    'mentor': userprof,
+                    'userprof': userprof
                 }
             )

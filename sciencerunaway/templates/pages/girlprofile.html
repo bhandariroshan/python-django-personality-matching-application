@@ -32,17 +32,8 @@
 
   <div class="container clearfix">
 
-  {% if request.user.is_superuser %}
-      <h1 style="text-align:center">Mentor</h1>
-  {% endif %}
+  <h1 style="text-align:center">{{girl.name}}'s Profile</h1>
 
-  {% if userprof.signup_type == 1 %}
-    <h1 style="text-align:center">My Mentor!</h1>
-  {% endif %}
-
-  {% if userprof.signup_type == 2 %}
-    <h1 style="text-align:center">Welcome {{mentor.name}}!</h1>
-  {% endif %}
   </div>
 
 </section><!-- #page-title end -->
@@ -55,15 +46,7 @@
       <div style="margin-bottom: 20px;">
 
           <div class="postcontent nobottommargin col_last clearfix">
-            {% if request.user.is_superuser and not mentor.user.is_active %}
-            <form action="." method="POST">
-              {% csrf_token %}
-              <p style="text-align:right">
-                <button type="submit" class="button button-3d nomargin">Approve</button>
-              </p>
-            </form>
-            {% endif %}
-          <p>{{mentor.bio}}</p>
+          <p>{{girl.bio}}</p>
           </div>
 
           <!-- Sidebar
@@ -73,17 +56,14 @@
 
               <div class="widget subscribe-widget clearfix">
                 <div class="dark" style="padding: 30px; background-color: #383838; border-radius: 2px; text-align:center">
-                  {% if mentor.image %}
-                    <img src="{{mentor.image}}" class="img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 156px;">
+                  {% if girl.image %}
+                    <img src="{{girl.image}}" class="img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 156px;">
                    {% else %}
                       <img src="/static/images/icons/avatar.png" class="img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 156px;">
                   {% endif %}
                   <div class="fancy-title title-border" style="margin-top: 30px;">
-                    <h4>{{mentor.name}}</h4>
+                    <h4>{{girl.name}}</h4>
                   </div>
-                  {% if request.user.is_super_user or userprof.signup_type == 2 %}
-                    <a href="/connections/{{mentor.id}}/">My Connections</a>
-                  {% endif %}
                 </div>
               </div>
 
@@ -94,7 +74,7 @@
       <!-- Post Content
       ============================================= -->
       <div class="clearfix" style="margin-top: 350px;">
-        {% for each_qa in mentor.other_answers %}
+        {% for each_qa in girl.common_answers %}
             {% if each_qa.1 %}
               <div class="accordion accordion-bg clearfix">
                     <div class="acctitle">

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block css %}
+<style type="text/css">
+  /*.accordion.accordion-bg .acctitle, .accordion.accordion-bg .acctitlec {
+            background-color: rgb(34, 179, 113);
+            line-height: 44px;
+            padding: 0 0 0 36px;
+            margin-bottom: 5px;
+            border-top: 0;
+        }
+
+        .panel-default {
+            border-color: rgb(34, 179, 113);
+        }
+
+        .acctitle {
+            display: block;
+            position: relative;
+            line-height: 24px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border-top: 1px dotted #DDD;
+            padding: 10px 0 10px 20px;
+        }*/
+</style>
+{% endblock %}
+{% block content %}
+  <section id="page-title">
+  <div class="container clearfix">
+    <h1 style="text-align:center">Unapproved Accounts</h1>
+  </div>
+</section><!-- #page-title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content" style="margin-left: 10%;">
+
+      <div class="content-wrap">
+
+        <div class="container clearfix">
+
+          <!-- Post Content
+          ============================================= -->
+          <div class="postcontent nobottommargin clearfix">
+
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Details</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for each_model in models %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{each_model.name}}</td>
+                <td>{{each_model.age}}</td>
+                <td><a href="/profile/{{each_model.id}}/" target="_blank">Details</a></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
+            
+            </div>
+
+          </div><!-- .postcontent end -->
+
+
+        </div>
+
+    </section><!-- #content end -->
+
+{% endblock %}
